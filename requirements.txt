@@ -1,0 +1,8 @@
+streamlit==0.83.0 
+pandas==1.0.5
+torch == 1.9.0+cu102
+Pillow==7.1.2
+matplotlib==3.2.1
+torchvision == 0.10.0+cu102
+numpy==1.18.5
+opencv-python==4.4.0.42
