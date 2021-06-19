@@ -1,6 +1,6 @@
 streamlit==0.83.0 
 pandas==1.0.5
-torch == 1.9.0+cpu
+torch == 1.8.0+cpu
 Pillow==7.1.2
 matplotlib==3.2.1
 torchvision == 0.10.0+cpu
