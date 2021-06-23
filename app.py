@@ -11,17 +11,29 @@ import matplotlib.pyplot as plt
 
 import torchvision.transforms as transforms
 import torchvision.models as models
-
+import time
 import copy
 import os
+import math
 output_images = []
 # st.image(images,width=224)
-st.title("My neural style transfer")
-st.write("Hello public... create your own art by just uploading your image and style you want to apply!")
-# st.latex("here is latex")
+
+
+
+st.title("ART WORK")
+st.write("Hello ... Create your own art by just uploading your images !")
 st.write("")
 st.write("")
-st.markdown("Choose an image for content image from sidebar")
+st.write("Processing will be slow because free host doesn't provide GPU support so it will be running on CPU so be patience.")
+' ### PLEASE TAKE A LOOK TO BELOW EXAMPLE IMAGES .'
+st.write("")
+st.write("")
+st.image(Image.open("content_img/kedarnath1.jpg"), caption='Example of Content Image.', width=224)
+st.image(Image.open("style_img/style06.jpg"), caption='Example of Style Image.', width=224)
+st.image(Image.open("output_img/Style06Kedarnath1.jpg"), caption='Example of Output Image.', width=224)
+
+st.markdown("Choose images for content image and style image from sidebar")
+st.sidebar.markdown("Content image here")
 content_img = st.sidebar.file_uploader("content image",type = 'jpg')
 
 if content_img is not None:
@@ -29,12 +41,14 @@ if content_img is not None:
     st.image(content_image_show, caption='Uploaded Content Image.', width=224)
 
 
+st.sidebar.markdown("Style image here")
 style_img = st.sidebar.file_uploader("style image",type = 'jpg')
+st.sidebar.markdown("Your uploaded photos will be shown to you on main page.")
 if style_img is not None:
     style_image_show = Image.open(style_img)
     st.image(style_image_show, caption='Uploaded Style Image.', width=224)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = "cpu"
 
 original_shape = None
 imsize = (512,512)
@@ -171,13 +185,17 @@ if content_img and style_img is not None:
     	buffered = BytesIO()
     	img.save(buffered, format="JPEG")
     	img_str = base64.b64encode(buffered.getvalue()).decode()
-    	href = f'<a href="data:file/jpg;base64,{img_str}">Download result</a>'
+    	href = f'<a href="data:file/txt;base64,{img_str}">Download result</a>'
     	return href
     input_img = content_img.clone()
 
     def get_input_optimizer(input_img):
         optimizer = optim.LBFGS([input_img.requires_grad_()])
         return optimizer
+    st.write("Progress bar:")
+    latest_iteration = st.empty()
+    bar = st.progress(0)
+    latest_iteration.text('0')
 
     def run_style_transfer(cnn, normalization_mean, normalization_std,
                            content_img, style_img, input_img, num_steps=300,
@@ -209,7 +227,12 @@ if content_img and style_img is not None:
 
                 loss = style_score + content_score
                 loss.backward()
-
+                if (run[0]/3) > 99:
+                    latest_iteration.text('100')
+                    bar.progress(100)
+                else:
+                    latest_iteration.text(f'{math.floor(run[0]/3)}')
+                    bar.progress(math.floor(run[0]/3))
                 run[0] += 1
                 if run[0] % 50 == 0:
                     print("run {}:".format(run))
@@ -220,8 +243,6 @@ if content_img and style_img is not None:
                     image = input_img.squeeze(0)
                     image = unloader(image)
                     image = image.resize(original_shape)
-                    # output_images.append(image)
-                    # st.image(output_images,width = 100)
                     st.image(image)
                     st.markdown(get_image_download_link(image), unsafe_allow_html=True)
                 return style_score + content_score
@@ -229,7 +250,6 @@ if content_img and style_img is not None:
             optimizer.step(closure)
 
         input_img.data.clamp_(0, 1)
-
         return input_img
 
     output = run_style_transfer(cnn, cnn_normalization_mean, cnn_normalization_std,
