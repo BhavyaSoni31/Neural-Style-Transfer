@@ -24,7 +24,7 @@ st.title("ART WORK")
 st.write("Hello ... Create your own art by just uploading your images !")
 st.write("")
 st.write("")
-st.write("Processing will be slow because free host doesn't provide GPU support so it will be running on CPU so be patience.")
+st.write("Processing will be slow because free host doesn't provide GPU support so it will be running on CPU so have some patience!")
 ' ### PLEASE TAKE A LOOK TO BELOW EXAMPLE IMAGES .'
 st.write("")
 st.write("")
