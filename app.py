@@ -28,9 +28,9 @@ st.write("Processing will be slow because free host doesn't provide GPU support 
 ' ### PLEASE TAKE A LOOK TO BELOW EXAMPLE IMAGES .'
 st.write("")
 st.write("")
-st.image(Image.open("Neural-Style-Transfer/neural_style_transfer/content_img/kedarnath1.jpg"), caption='Example of Content Image.', width=224)
-st.image(Image.open("Neural-Style-Transfer/neural_style_transfer/style_img/style06.jpg"), caption='Example of Style Image.', width=224)
-st.image(Image.open("Neural-Style-Transfer/neural_style_transfer/output_img/Style06Kedarnath1.jpg"), caption='Example of Output Image.', width=224)
+st.image(Image.open("kedarnath1.jpg"), caption='Example of Content Image.', width=224)
+st.image(Image.open("style06.jpg"), caption='Example of Style Image.', width=224)
+st.image(Image.open("Style06Kedarnath1.jpg"), caption='Example of Output Image.', width=224)
 
 st.markdown("Choose images for content image and style image from sidebar")
 st.sidebar.markdown("Content image here")
