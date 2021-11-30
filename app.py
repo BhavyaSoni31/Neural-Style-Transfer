@@ -21,7 +21,7 @@ output_images = []
 
 
 st.title("ART WORK")
-st.write("TRY WITH PC(RECOMMANDED... HEHE) - IF FACING PROBLEM ON OTHER DEVICES.")
+st.write("TRY WITH PC(RECOMMENDED...HEHE) - IF FACING PROBLEM ON OTHER DEVICES.")
 st.write("Create your own art by just uploading your images !")
 st.write("")
 st.write("")
