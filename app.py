@@ -21,7 +21,8 @@ output_images = []
 
 
 st.title("ART WORK")
-st.write("Hello ... Create your own art by just uploading your images !")
+st.write("TRY WITH PC(RECOMMANDED... HEHE) - IF FACING PROBLEM ON OTHER DEVICES.")
+st.write("Create your own art by just uploading your images !")
 st.write("")
 st.write("")
 st.write("Processing will be slow because free host doesn't provide GPU support so it will be running on CPU so have some patience!")
